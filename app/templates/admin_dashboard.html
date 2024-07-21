@@ -1,0 +1,32 @@
+{% extends "base.html" %} {% block content %}
+<h2 class="text-center">All Users</h2>
+<ul class="list-group mb-3">
+  {% for user in users %}
+  <li class="list-group-item">
+    <strong>{{ user.username }} ({{ user.role }})</strong>
+  </li>
+  {% endfor %}
+</ul>
+
+<h2 class="text-center">All Campaigns</h2>
+<ul class="list-group mb-3">
+  {% for campaign in campaigns %}
+  <li class="list-group-item">
+    <strong>{{ campaign.name }}</strong>
+    <p>{{ campaign.description }}</p>
+  </li>
+  {% endfor %}
+</ul>
+
+<h2 class="text-center">All Ad Requests</h2>
+<ul class="list-group mb-3">
+  {% for ad_request in ad_requests %}
+  <li class="list-group-item">
+    <strong>Campaign ID: {{ ad_request.campaign_id }}</strong>
+    <p>{{ ad_request.requirements }}</p>
+    <p>Payment: {{ ad_request.payment_amount }}</p>
+    <p>Status: {{ ad_request.status }}</p>
+  </li>
+  {% endfor %}
+</ul>
+{% endblock %}

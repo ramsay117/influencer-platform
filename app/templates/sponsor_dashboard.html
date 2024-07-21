@@ -1,0 +1,19 @@
+{% extends "base.html" %} {% block content %}
+<h2 class="text-center">Your Campaigns</h2>
+<ul class="list-group mb-3">
+  {% for campaign in campaigns %}
+  <li class="list-group-item">
+    <strong>{{ campaign.name }}</strong>
+    <p>{{ campaign.description }}</p>
+    <a
+      href="{{ url_for('main.create_ad_request', campaign_id=campaign.id) }}"
+      class="btn btn-primary"
+      >Create Ad Request</a
+    >
+  </li>
+  {% endfor %}
+</ul>
+<a href="{{ url_for('main.create_campaign') }}" class="btn btn-success mt-3"
+  >Create New Campaign</a
+>
+{% endblock %}

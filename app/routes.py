@@ -47,19 +47,16 @@ def register():
 def dashboard():
     if current_user.role == "sponsor":
         campaigns = Campaign.query.filter_by(sponsor_id=current_user.id).all()
-        return render_template("sponsor_dashboard.html", campaigns=campaigns)
+        return render_template("dashboard.html", campaigns=campaigns)
     elif current_user.role == "influencer":
         ad_requests = AdRequest.query.filter_by(influencer_id=current_user.id).all()
-        return render_template("influencer_dashboard.html", ad_requests=ad_requests)
-    else:  # Assuming the else condition handles 'admin' role
+        return render_template("dashboard.html", ad_requests=ad_requests)
+    elif current_user.role == "admin":
         users = User.query.all()
         campaigns = Campaign.query.all()
         ad_requests = AdRequest.query.all()
         return render_template(
-            "admin_dashboard.html",
-            users=users,
-            campaigns=campaigns,
-            ad_requests=ad_requests,
+            "dashboard.html", users=users, campaigns=campaigns, ad_requests=ad_requests
         )
 
 
@@ -86,7 +83,7 @@ def create_campaign():
 
 
 @bp.route("/create_ad_request/<int:campaign_id>", methods=["GET", "POST"])
-# @login_required
+@login_required
 def create_ad_request(campaign_id):
     form = AdRequestForm()
     form.influencer_id.choices = [
